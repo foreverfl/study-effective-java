@@ -215,9 +215,66 @@
 
 ## 아이템 42. 익명 클래스보다는 람다를 사용하라
 
+### 요약
+
+- 타입을 명시해야 코드가 더 명확할 때만 제외하고는, 람다의 모든 매개변수 타입은 생략할 것.
+- 람다는 이름이 없고 문서화도 못함. 따라서 코드 자체로 동작이 명확히 설명되지 않거나 코드 줄 수가 많아지면 람다를 쓰지 말아야 함.
+- 람다를 직렬화하는 일은 극히 삼가야 함.
+- 익명 클래스는 (함수형 인터페이스가 아닌) 타입의 인스턴스를 만들 때만 사용할 것.
+
 ## 아이템 43. 람다보다는 메서드 참조를 사용하라
 
+### 메서드 참조 유형
+
+- 정적 메서드 참조 (Static Method Reference)
+  > - **형식**: `ClassName::staticMethodName`
+  > - **설명**: 클래스의 정적 메서드를 참조함.
+- 한정적 인스턴스 메서드 참조 (Bound Instance Method Reference)
+  > - **형식**: `instanceRef::instanceMethodName`
+  > - **설명**: 특정 객체의 인스턴스 메서드를 참조함.
+- 비한정적 인스턴스 메서드 참조 (Unbound Instance Method Reference)
+  > - **형식**: `ClassName::instanceMethodName`
+  > - **설명**: 클래스의 인스턴스 메서드를 참조하지만, 객체 인스턴스는 람다 표현식의 첫 번째 매개변수로 전달됨.
+- 클래스 생성자 메서드 참조 (Class Constructor Reference)
+  > - **형식**: `ClassName::new`
+  > - **설명**: 클래스의 생성자를 참조함.
+- 배열 생성자 메서드 참조 (Array Constructor Reference)
+  > - **형식**: `TypeName[]::new`
+  > - **설명**: 배열의 생성자를 참조함.
+
+### 요약
+
+- 메서드 참조 쪽이 짧고 명확하다면 메서드 참조를 쓰고, 그렇지 않을때만 람다를 활용할 것.
+
 ## 아이템 44. 표준 함수형 인터페이스를 사용하라
+
+### 기본 함수형 인터페이스
+
+- `UnaryOperator<T>`
+  > - **개념**: 같은 타입의 인수와 반환값을 가지는 함수형 인터페이스. 입력값을 연산하여 동일한 타입의 결과를 반환함.
+  > - **메서드**: `T apply(T t)`
+- `BinaryOperator<T>`
+  > - **개념**: 두 개의 같은 타입 인수를 받아 동일한 타입의 결과를 반환하는 함수형 인터페이스. 주로 두 값을 연산하는 데 사용됨.
+  > - **메서드**: `T apply(T t1, T t2)`
+- `Predicate<T>`
+  > - **개념**: 인수를 받아 `boolean` 값을 반환하는 함수형 인터페이스. 주로 조건 검사에 사용됨.
+  > - **메서드**: `boolean test(T t)`
+- `Function<T, R>`
+  > - **개념**: 인수를 받아 다른 타입의 결과를 반환하는 함수형 인터페이스. 주로 값을 변환하는 데 사용됨.
+  > - **메서드**: `R apply(T t)`
+- `Supplier<T>`
+  > - **개념**: 인수 없이 결과만 반환하는 함수형 인터페이스. 주로 값을 생성하는 데 사용됨.
+  > - **메서드**: `T get()`
+- `Consumer<T>`
+  > - **개념**: 인수를 받지만 결과를 반환하지 않는 함수형 인터페이스. 주로 값을 소비하는 데 사용됨.
+  > - **메서드**: `void accept(T t)`
+
+### 요약
+
+- 입력값과 반환값에 함수형 인터페이스 타입을 활용할 것. 보통은 `java.util.function` 패키지의 표준 함수형 인터페이스를 사용하는 것이 가장 좋은 선택.
+- 필요한 용도에 맞는 게 있다면, 직접 구현하지 말고 표준 함수형 인터페이스를 활용할 것.
+- 기본 함수형 인터페이스에 박싱된 기본 타입을 넣어 사용하지 말 것.
+- 직접 만든 함수형 인터페이스에는 항상 `@FunctionalInterface`를 활용할 것.
 
 ## 아이템 46. 스트림에서는 부작용 없는 함수를 사용하라
 
@@ -314,3 +371,130 @@
 ## 아이템 89. 인스턴스 수를 통제해야 한다면 readResolve보다는 열거 타입을 사용하라
 
 ## 아이템 90. 직렬화된 인스턴스 대신 직렬화 프록시 사용을 검토하라
+
+## 클래스명
+
+Chapter 1: Introduction
+
+Chapter 2: Creating and Destroying Objects
+
+public class Item1_ConsiderStaticFactoryMethods {}
+public class Item2_ConsiderBuilderWhenFacedWithManyConstructorParameters {}
+public class Item3_EnforceSingletonPropertyWithPrivateConstructorOrEnum {}
+public class Item4_EnforceNoninstantiabilityWithPrivateConstructor {}
+public class Item5_PreferDependencyInjectionToHardwiringResources {}
+public class Item6_AvoidCreatingUnnecessaryObjects {}
+public class Item7_EliminateObsoleteObjectReferences {}
+public class Item8_AvoidFinalizersAndCleaners {}
+public class Item9_PreferTryWithResourcesToTryFinally {}
+
+Chapter 3: Methods Common to All Objects
+
+public class Item10_OverrideEqualsConsistently {}
+public class Item11_OverrideHashCodeWhenOverridingEquals {}
+public class Item12_AlwaysOverrideToString {}
+public class Item13_OverrideCloneJudiciously {}
+public class Item14_ConsiderImplementingComparable {}
+
+Chapter 4: Classes and Interfaces
+
+public class Item15_MinimizeAccessibilitiesOfClassesAndMembers {}
+public class Item16_InsteadOfPublicFieldsUseAccessorMethods {}
+public class Item17_MinimizeMutability {}
+public class Item18_PreferCompositionOverInheritance {}
+public class Item19_DesignAndDocumentForInheritanceOrElseProhibitIt {}
+public class Item20_PreferInterfacesToAbstractClasses {}
+public class Item21_DesignInterfacesForImplementation {}
+public class Item22_UseInterfacesOnlyToDefineTypes {}
+public class Item23_PreferClassHierarchiesToTaggedClasses {}
+public class Item24_FavorStaticMemberClassesOverNonStatic {}
+public class Item25_LimitSourceFilesToASingleTopLevelClass {}
+
+Chapter 5: Generics
+
+public class Item26_DoNotUseRawTypes {}
+public class Item27_EliminateUncheckedWarnings {}
+public class Item28_PreferListsToArrays {}
+public class Item29_FavorGenericTypes {}
+public class Item30_FavorGenericMethods {}
+public class Item31_UseBoundedWildcardsToIncreaseAPIFlexibility {}
+public class Item32_CarefullyUseGenericsAndVarargsTogether {}
+public class Item33_ConsiderTypesafeHeterogeneousContainers {}
+
+Chapter 6: Enums and Annotations
+
+public class Item34_UseEnumsInsteadOfIntConstants {}
+public class Item35_UseInstanceFieldsInsteadOfOrdinals {}
+public class Item36_UseEnumSetInsteadOfBitFields {}
+public class Item37_UseEnumMapInsteadOfOrdinalIndexing {}
+public class Item38_ExtensibleEnumsViaInterfaces {}
+public class Item39_PreferAnnotationsToNamingPatterns {}
+public class Item40_ConsistentlyUseOverrideAnnotation {}
+public class Item41_UseMarkerInterfacesToDefineTypes {}
+
+Chapter 7: Lambdas and Streams
+
+public class Item42_PreferLambdasToAnonymousClasses {}
+public class Item43_PreferMethodReferencesToLambdas {}
+public class Item44_UseStandardFunctionalInterfaces {}
+public class Item45_UseStreamsJudiciously {}
+public class Item46_PreferSideEffectFreeFunctionsInStreams {}
+public class Item47_PreferCollectionReturnTypesToStreamReturnTypes {}
+public class Item48_CarefulUseOfParallelStreams {}
+
+Chapter 8: Methods
+
+public class Item49_CheckParametersForValidity {}
+public class Item50_DefensiveCopiesForMutableFields {}
+public class Item51_DesignMethodSignaturesCarefully {}
+public class Item52_UseOverloadingJudiciously {}
+public class Item53_CarefullyUseVarargs {}
+public class Item54_ReturnEmptyCollectionsOrArraysNotNulls {}
+public class Item55_ReturnOptionalsJudiciously {}
+public class Item56_AlwaysDocumentAPIElems {}
+
+Chapter 9: General Programming
+
+public class Item57_MinimizeLocalVariableScope {}
+public class Item58_PreferForEachLoopsToTraditionalForLoops {}
+public class Item59_KnowAndUseLibraries {}
+public class Item60_AvoidFloatAndDoubleForExactAnswers {}
+public class Item61_PreferPrimitiveTypesToBoxedPrimitives {}
+public class Item62_AvoidStringsWhereOtherTypesAreMoreAppropriate {}
+public class Item63_BeWaryOfStringConcatenation {}
+public class Item64_ReferToObjectsByTheirInterfaces {}
+public class Item65_PreferInterfacesToReflection {}
+public class Item66_UseNativeMethodsJudiciously {}
+public class Item67_AvoidUnnecessaryOptimizations {}
+public class Item68_AdhereToGeneralNamingConventions {}
+
+Chapter 10: Exceptions
+
+public class Item69_UseExceptionsOnlyForExceptionalConditions {}
+public class Item70_UseCheckedExceptionsForRecoverableConditions {}
+public class Item71_AvoidUnnecessaryUseOfCheckedExceptions {}
+public class Item72_FavorStandardExceptions {}
+public class Item73_ThrowExceptionsAppropriateToAbstractionLevel {}
+public class Item74_DocumentAllThrownExceptions {}
+public class Item75_IncludeFailureCaptureInformationInExceptionMessages {}
+public class Item76_StriveForFailureAtomicity {}
+public class Item77_DoNotIgnoreExceptions {}
+
+Chapter 11: Concurrency
+
+public class Item78_SynchronizeAccessToSharedMutableData {}
+public class Item79_AvoidExcessiveSynchronization {}
+public class Item80_PreferExecutorsTasksAndStreamsToThreads {}
+public class Item81_PreferConcurrencyUtilitiesToWaitAndNotify {}
+public class Item82_DocumentThreadSafety {}
+public class Item83_UseLazyInitializationJudiciously {}
+public class Item84_DoNotRelyOnThreadSchedulers {}
+
+Chapter 12: Serialization
+
+public class Item85_FindAlternativesToJavaSerialization {}
+public class Item86_CarefullyDecideWhetherToImplementSerializable {}
+public class Item87_ConsiderCustomSerializedForms {}
+public class Item88_WriteReadObjectMethodsDefensively {}
+public class Item89_ForInstanceControlUseEnumOrReadResolve {}
+public class Item90_ConsiderSerializationProxies {}
