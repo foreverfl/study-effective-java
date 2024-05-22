@@ -75,59 +75,59 @@
 
 - 8장 메서드
 
-  > - [아이템 49. 매개변수가 유효한지 검사하라]
-  > - [아이템 50. 적시에 방어적 복사본을 만들라]
-  > - [아이템 51. 메서드 시그니처를 신중히 설계하라]
-  > - [아이템 52. 다중정의는 신중히 사용하라]
-  > - [아이템 53. 가변인수는 신중히 사용하라]
-  > - [아이템 54. null이 아닌, 빈 컬렉션이나 배열을 반환하라]
-  > - [아이템 55. 옵셔널 반환은 신중히 하라]
-  > - [아이템 56. 공개된 API 요소에는 항상 문서화 주석을 작성하라]
+  > - [아이템 49. 매개변수가 유효한지 검사하라](#아이템-49-매개변수가-유효한지-검사하라)
+  > - [아이템 50. 적시에 방어적 복사본을 만들라](#아이템-50-적시에-방어적-복사본을-만들라)
+  > - [아이템 51. 메서드 시그니처를 신중히 설계하라](#아이템-51-메서드-시그니처를-신중히-설계하라)
+  > - [아이템 52. 다중정의는 신중히 사용하라](#아이템-52-다중정의는-신중히-사용하라)
+  > - [아이템 53. 가변인수는 신중히 사용하라](#아이템-53-가변인수는-신중히-사용하라)
+  > - [아이템 54. null이 아닌, 빈 컬렉션이나 배열을 반환하라](#아이템-54-null이-아닌-빈-컬렉션이나-배열을-반환하라)
+  > - [아이템 55. 옵셔널 반환은 신중히 하라](#아이템-55-옵셔널-반환은-신중히-하라)
+  > - [아이템 56. 공개된 API 요소에는 항상 문서화 주석을 작성하라](#아이템-56-공개된-api-요소에는-항상-문서화-주석을-작성하라)
 
 - 9장 일반적인 프로그래밍 원칙
 
-  > - [아이템 57. 지역변수의 범위를 최소화하라]
-  > - [아이템 58. 전통적인 for 문보다는 for-each 문을 사용하라]
-  > - [아이템 59. 라이브러리를 익히고 사용하라]
-  > - [아이템 60. 정확한 답이 필요하다면 float와 double은 피하라]
-  > - [아이템 61. 박싱된 기본 타입보다는 기본 타입을 사용하라]
-  > - [아이템 62. 다른 타입이 적절하다면 문자열 사용을 피하라]
-  > - [아이템 63. 문자열 연결은 느리니 주의하라]
-  > - [아이템 64. 객체는 인터페이스를 사용해 참조하라]
-  > - [아이템 65. 리플렉션보다는 인터페이스를 사용하라]
-  > - [아이템 66. 네이티브 메서드는 신중히 사용하라]
-  > - [아이템 67. 최적화는 신중히 하라]
-  > - [아이템 68. 일반적으로 통용되는 명명 규칙을 따르라]
+  > - [아이템 57. 지역변수의 범위를 최소화하라](#아이템-57-지역변수의-범위를-최소화하라)
+  > - [아이템 58. 전통적인 for 문보다는 for-each 문을 사용하라](#아이템-58-전통적인-for-문보다는-for-each-문을-사용하라)
+  > - [아이템 59. 라이브러리를 익히고 사용하라](#아이템-59-라이브러리를-익히고-사용하라)
+  > - [아이템 60. 정확한 답이 필요하다면 float와 double은 피하라](#아이템-60-정확한-답이-필요하다면-float와-double은-피하라)
+  > - [아이템 61. 박싱된 기본 타입보다는 기본 타입을 사용하라](#아이템-61-박싱된-기본-타입보다는-기본-타입을-사용하라)
+  > - [아이템 62. 다른 타입이 적절하다면 문자열 사용을 피하라](#아이템-62-다른-타입이-적절하다면-문자열-사용을-피하라)
+  > - [아이템 63. 문자열 연결은 느리니 주의하라](#아이템-63-문자열-연결은-느리니-주의하라)
+  > - [아이템 64. 객체는 인터페이스를 사용해 참조하라](#아이템-64-객체는-인터페이스를-사용해-참조하라)
+  > - [아이템 65. 리플렉션보다는 인터페이스를 사용하라](#아이템-65-리플렉션보다는-인터페이스를-사용하라)
+  > - [아이템 66. 네이티브 메서드는 신중히 사용하라](#아이템-66-네이티브-메서드는-신중히-사용하라)
+  > - [아이템 67. 최적화는 신중히 하라](#아이템-67-최적화는-신중히-하라)
+  > - [아이템 68. 일반적으로 통용되는 명명 규칙을 따르라](#아이템-68-일반적으로-통용되는-명명-규칙을-따르라)
 
 - 10장 예외
 
-  > - [아이템 69. 예외는 진짜 예외 상황에만 사용하라]
-  > - [아이템 70. 복구할 수 있는 상황에는 검사 예외를, 프로그래밍 오류에는 런타임 예외를 사용하라]
-  > - [아이템 71. 필요 없는 검사 예외 사용은 피하라]
-  > - [아이템 72. 표준 예외를 사용하라]
-  > - [아이템 73. 추상화 수준에 맞는 예외를 던지라]
-  > - [아이템 74. 메서드가 던지는 모든 예외를 문서화하라]
-  > - [아이템 75. 예외의 상세 메시지에 실패 관련 정보를 담으라]
-  > - [아이템 76. 가능한 한 실패 원자적으로 만들라]
-  > - [아이템 77. 예외를 무시하지 말라]
+  > - [아이템 69. 예외는 진짜 예외 상황에만 사용하라](#아이템-69-예외는-진짜-예외-상황에만-사용하라)
+  > - [아이템 70. 복구할 수 있는 상황에는 검사 예외를, 프로그래밍 오류에는 런타임 예외를 사용하라](#아이템-70-복구할-수-있는-상황에는-검사-예외를-프로그래밍-오류에는-런타임-예외를-사용하라)
+  > - [아이템 71. 필요 없는 검사 예외 사용은 피하라](#아이템-71-필요-없는-검사-예외-사용은-피하라)
+  > - [아이템 72. 표준 예외를 사용하라](#아이템-72-표준-예외를-사용하라)
+  > - [아이템 73. 추상화 수준에 맞는 예외를 던지라](#아이템-73-추상화-수준에-맞는-예외를-던지라)
+  > - [아이템 74. 메서드가 던지는 모든 예외를 문서화하라](#아이템-74-메서드가-던지는-모든-예외를-문서화하라)
+  > - [아이템 75. 예외의 상세 메시지에 실패 관련 정보를 담으라](#아이템-75-예외의-상세-메시지에-실패-관련-정보를-담으라)
+  > - [아이템 76. 가능한 한 실패 원자적으로 만들라](#아이템-76-가능한-한-실패-원자적으로-만들라)
+  > - [아이템 77. 예외를 무시하지 말라](#아이템-77-예외를-무시하지-말라)
 
 - 11장 동시성
 
-  > - [아이템 78. 공유 중인 가변 데이터는 동기화해 사용하라]
-  > - [아이템 79. 과도한 동기화는 피하라]
-  > - [아이템 80. 스레드보다는 실행자, 태스크, 스트림을 애용하라]
-  > - [아이템 81. wait와 notify보다는 동시성 유틸리티를 애용하라]
-  > - [아이템 82. 스레드 안전성 수준을 문서화하라]
-  > - [아이템 83. 지연 초기화는 신중히 사용하라]
-  > - [아이템 84. 프로그램의 동작을 스레드 스케줄러에 기대지 말라]
+  > - [아이템 78. 공유 중인 가변 데이터는 동기화해 사용하라](#아이템-78-공유-중인-가변-데이터는-동기화해-사용하라)
+  > - [아이템 79. 과도한 동기화는 피하라](#아이템-79-과도한-동기화는-피하라)
+  > - [아이템 80. 스레드보다는 실행자, 태스크, 스트림을 애용하라](#아이템-80-스레드보다는-실행자-태스크-스트림을-애용하라)
+  > - [아이템 81. wait와 notify보다는 동시성 유틸리티를 애용하라](#아이템-81-wait와-notify보다는-동시성-유틸리티를-애용하라)
+  > - [아이템 82. 스레드 안전성 수준을 문서화하라](#아이템-82-스레드-안전성-수준을-문서화하라)
+  > - [아이템 83. 지연 초기화는 신중히 사용하라](#아이템-83-지연-초기화는-신중히-사용하라)
+  > - [아이템 84. 프로그램의 동작을 스레드 스케줄러에 기대지 말라](#아이템-84-프로그램의-동작을-스레드-스케줄러에-기대지-말라)
 
 - 12장 직렬화
-  > - [아이템 85. 자바 직렬화의 대안을 찾으라]
-  > - [아이템 86. Serializable을 구현할지는 신중히 결정하라]
-  > - [아이템 87. 커스텀 직렬화 형태를 고려해보라]
-  > - [아이템 88. readObject 메서드는 방어적으로 작성하라]
-  > - [아이템 89. 인스턴스 수를 통제해야 한다면 readResolve보다는 열거 타입을 사용하라]
-  > - [아이템 90. 직렬화된 인스턴스 대신 직렬화 프록시 사용을 검토하라]
+  > - [아이템 85. 자바 직렬화의 대안을 찾으라](#아이템-85-자바-직렬화의-대안을-찾으라)
+  > - [아이템 86. Serializable을 구현할지는 신중히 결정하라](#아이템-86-serializable을-구현할지는-신중히-결정하라)
+  > - [아이템 87. 커스텀 직렬화 형태를 고려해보라](#아이템-87-커스텀-직렬화-형태를-고려해보라)
+  > - [아이템 88. readObject 메서드는 방어적으로 작성하라](#아이템-88-readobject-메서드는-방어적으로-작성하라)
+  > - [아이템 89. 인스턴스 수를 통제해야 한다면 readResolve보다는 열거 타입을 사용하라](#아이템-89-인스턴스-수를-통제해야-한다면-readresolve보다는-열거-타입을-사용하라)
+  > - [아이템 90. 직렬화된 인스턴스 대신 직렬화 프록시 사용을 검토하라](#아이템-90-직렬화된-인스턴스-대신-직렬화-프록시-사용을-검토하라)
 
 ## 아이템 1. 생성자 대신 정적 팩터리 메서드를 고려하라
 
@@ -145,7 +145,57 @@
 
 ## 아이템 8. finalizer와 cleaner 사용을 피하라
 
+### finalizer
+
+- Java 9 이전에는 객체가 가비지 컬렉션 대상이 될 때 정리 작업을 수행하는 방법으로 `finalize` 메서드를 사용했음.
+- `finalize` 메서드는 객체가 더 이상 참조되지 않을 때 가비지 컬렉터에 의해 호출되지만, 호출 시점이 명확하지 않으며 성능에 큰 영향을 미칠 수 있음.
+
+### Cleaner
+
+- Java 9에서 도입된 `Cleaner`는 `finalize` 메서드를 대체하는 더 안전하고 성능이 좋은 방법.
+- `Cleaner`는 백그라운드 스레드를 사용하여 등록된 객체가 가비지 컬렉션 대상이 될 때 정리 작업을 수행함.
+- `Cleaner`는 명시적으로 객체를 정리할 수 있는 방법을 제공하여, 정리 작업의 타이밍을 좀 더 제어할 수 있음.
+
+### finalizer와 Cleaner 사용을 피해야 하는 이유
+
+- **Unpredictable Timing**: `finalize` 메서드는 가비지 컬렉터에 의해 호출되므로, 호출 시점이 예측할 수 없음. 이는 리소스 해제 작업이 지연되어 리소스 누수 문제를 일으킬 수 있음.
+- **Performance Overhead**: `finalize` 메서드는 성능에 큰 영향을 줄 수 있음. 가비지 컬렉션 과정에서 추가적인 오버헤드가 발생하기 때문임.
+- **Unreliability**: `finalize` 메서드가 실행되지 않을 수도 있음. 가비지 컬렉터가 객체를 수집하기 전에 프로그램이 종료될 수 있기 때문임.
+- **Security Risks**: `finalize` 메서드를 잘못 사용하면 보안 문제가 발생할 수 있음. 특히, `finalize` 메서드를 오버라이드하여 객체를 재생성하면 예기치 않은 동작을 유발할 수 있음.
+
+### 요약
+
+- **`cleaner`(자바 8까지는 `finalizer`)는 안전망 역할이나 중요하지 않은 네이티브 자원 회수로용으로만 사용할 것.**
+- `finalizer`는 예측할 수 없고, 상황에 따라 위험할 수 있어 일반적으로 불필요함.
+- `cleaner`는 `finalizer`보다는 덜 위험하지만, 여전히 예측할 수 없고, 느리고, 일반적으로 불필요함.
+- `finalizer`와 `cleaner`로는 제때 실행되어야 하는 작업은 절대 할 수 없음.
+- 상태를 영구적으로 수정하는 작업에서는 절대 `finalizer`나 `cleaner`에 의존해서는 안됨.
+- `finalizer`와 `cleaner`는 심각한 성능 문제도 동반함.
+- `finalizer`를 사용한 클래스는 `finalizer` 공격에 노출되어 심각한 보안 문제를 일으킬 수도 있음.
+- `final`이 아닌 클래스를 `finalizer` 공격으로부터 방어하려면 아무일도 하지 않는 `finalizer`를 만들고 `final`로 선언할 것.
+- `finalizer`나 `cleaner`를 대신해서 `AutoClosable`을 쓸 것.
+
 ## 아이템 9. try-finally보다는 try-with-resources를 사용하라
+
+### try-finally
+
+- `try` 블록에서 리소스를 사용하고, `finally` 블록에서 리소스를 명시적으로 해제해야 함.
+- 코드가 길어지고 가독성이 떨어질 수 있음.
+- 리소스 해제 로직을 개발자가 직접 작성해야 함.
+- 예외 발생 시 리소스 해제 로직이 실행되지 않을 수 있음.
+
+### try-with-resources
+
+- Java 7부터 도입된 기능으로, 리소스를 자동으로 해제해주는 구문.
+- `try` 블록에서 사용할 리소스를 소괄호 안에 선언함.
+- 리소스 객체는 `AutoCloseable` 인터페이스를 구현해야 함.
+- `try` 블록이 종료되면 자동으로 리소스의 `close()` 메서드가 호출되어 리소스가 해제됨.
+- 코드가 간결해지고 가독성이 좋아짐.
+- 예외 발생 여부와 관계없이 항상 리소스가 해제됨.
+
+### 요약
+
+- 꼭 회수해야 하는 자원을 다룰 때는 try-finally가 아닌 try-with-resources를 사용할 것.
 
 ## 아이템 10. equals는 일반 규약을 지켜 재정의하라
 
@@ -451,7 +501,52 @@ public class ReificationExample {
 
 ## 아이템 69. 예외는 진짜 예외 상황에만 사용하라
 
+### 요약
+
+- **예외는 예외 상황에서 쓸 의도로 설계됨. 정상적인 제어 흐름에서는 사용해서는 안되며, 이를 프로그래머에게 강요하는 API를 만들어서도 안 됨**.
+- 예외는 오직 예외 상황에서만 써야함. 절대로 일상적인 제어 흐름용으로 쓰여선 안 됨.
+- 잘 설계된 API라면 클라이언트가 정상적인 제어 흐름에서 예외를 사용할 일이 없게 해야 함.
+
 ## 아이템 70. 복구할 수 있는 상황에는 검사 예외를, 프로그래밍 오류에는 런타임 예외를 사용하라
+
+### 검사 예외(Checked Exception)
+
+- 검사 예외는 `Exception` 클래스의 서브 클래스 중 `RuntimeException`을 상속하지 않는 예외.
+- 컴파일러가 프로그램의 컴파일 시점에 검사 예외 처리 여부를 검사함.
+- 검사 예외가 발생할 수 있는 메서드를 호출할 때는 반드시 `try-catch` 블록으로 예외를 처리하거나 `throws` 키워드로 예외를 선언해야 함.
+- 대표적인 검사 예외로는 `IOException`, `SQLException` 등이 있음.
+- 검사 예외는 일반적으로 복구 가능한 예외 상황을 나타내며, 예외 처리를 강제함으로써 안정성을 높임.
+- 컴파일 시점에 예외 처리 여부를 검사함.
+- 예외 처리를 강제함으로써 안정성을 높일 수 있음.
+
+### 비검사 예외(Unchecked Exception)
+
+- 비검사 예외는 `RuntimeException` 클래스의 서브 클래스.
+- 컴파일러가 프로그램의 컴파일 시점에 비검사 예외 처리 여부를 검사하지 않음.
+- 비검사 예외는 `try-catch` 블록으로 예외를 처리하거나 `throws` 키워드로 예외를 선언하지 않아도 됨.
+- 대표적인 비검사 예외로는 `NullPointerException`, `ArrayIndexOutOfBoundsException` 등이 있음.
+- 비검사 예외는 일반적으로 프로그램의 오류나 잘못된 사용으로 인한 예외 상황을 나타내며, 개발자가 예외 처리를 선택적으로 할 수 있음.
+- 컴파일 시점에 예외 처리 여부를 검사하지 않음.
+- 예외 처리를 선택적으로 할 수 있어 유연성을 제공함.
+
+### Throwable
+
+- `Throwable`은 Java에서 모든 예외와 오류의 최상위 클래스.
+- `Throwable`은 크게 두 가지 하위 클래스로 나뉨
+  > - `Exception`: 일반적인 예외를 나타내는 클래스. 프로그램 실행 중에 발생할 수 있는 예외 상황을 나타냄.
+  > - `Error`: 심각한 오류를 나타내는 클래스. 일반적으로 프로그램으로 처리할 수 없는 시스템 레벨의 오류를 나타냄.
+- `Throwable`을 직접 사용하는 경우는 드뭄. 대부분의 경우 `Exception`이나 `Error` 클래스 또는 그 하위 클래스를 사용하여 예외와 오류를 처리함.
+- 하지만 `Throwable`은 예외와 오류의 공통적인 기능을 제공하며, 다음과 같은 상황에서 사용될 수 있음.
+  > - 모든 예외와 오류를 한 번에 처리해야 할 때
+  > - 예외와 오류에 대한 공통적인 로깅이나 보고 기능을 구현할 때
+  > - 사용자 정의 예외 클래스를 만들 때 (예: `extends Exception` 또는 `extends Throwable`)
+
+### 요약
+
+- 복구할 수 있는 상황이면 검사 예외를, 프로그래밍 오류라면 비검사 예외를 던질 것. 확실하지 않다면 비검사 예외를 던질 것. 검사 예외도 아니고 런타임 에외도 아닌 `throwable`은 정의하지도 말 것.
+- 호출하는 쪽에서 복구하리라 여겨지는 상황이라면 검사 예외를 사용할 것.
+- 프로그래밍 오류를 나타낼 때는 런타임 예외를 사용할 것.
+- 구현하는 비검사 `throwable`은 모두 `RuntimeException`의 하위 클래스여야 함.
 
 ## 아이템 71. 필요 없는 검사 예외 사용은 피하라
 
@@ -495,20 +590,6 @@ public class ReificationExample {
 
 ## 클래스명
 
-Chapter 1: Introduction
-
-Chapter 2: Creating and Destroying Objects
-
-public class Item1_ConsiderStaticFactoryMethods {}
-public class Item2_ConsiderBuilderWhenFacedWithManyConstructorParameters {}
-public class Item3_EnforceSingletonPropertyWithPrivateConstructorOrEnum {}
-public class Item4_EnforceNoninstantiabilityWithPrivateConstructor {}
-public class Item5_PreferDependencyInjectionToHardwiringResources {}
-public class Item6_AvoidCreatingUnnecessaryObjects {}
-public class Item7_EliminateObsoleteObjectReferences {}
-public class Item8_AvoidFinalizersAndCleaners {}
-public class Item9_PreferTryWithResourcesToTryFinally {}
-
 Chapter 3: Methods Common to All Objects
 
 public class Item10_OverrideEqualsConsistently {}
@@ -531,8 +612,6 @@ public class Item23_PreferClassHierarchiesToTaggedClasses {}
 public class Item24_FavorStaticMemberClassesOverNonStatic {}
 public class Item25_LimitSourceFilesToASingleTopLevelClass {}
 
-Chapter 5: Generics
-
 Chapter 6: Enums and Annotations
 
 public class Item34_UseEnumsInsteadOfIntConstants {}
@@ -543,8 +622,6 @@ public class Item38_ExtensibleEnumsViaInterfaces {}
 public class Item39_PreferAnnotationsToNamingPatterns {}
 public class Item40_ConsistentlyUseOverrideAnnotation {}
 public class Item41_UseMarkerInterfacesToDefineTypes {}
-
-Chapter 7: Lambdas and Streams
 
 Chapter 8: Methods
 
@@ -571,34 +648,3 @@ public class Item65_PreferInterfacesToReflection {}
 public class Item66_UseNativeMethodsJudiciously {}
 public class Item67_AvoidUnnecessaryOptimizations {}
 public class Item68_AdhereToGeneralNamingConventions {}
-
-Chapter 10: Exceptions
-
-public class Item69_UseExceptionsOnlyForExceptionalConditions {}
-public class Item70_UseCheckedExceptionsForRecoverableConditions {}
-public class Item71_AvoidUnnecessaryUseOfCheckedExceptions {}
-public class Item72_FavorStandardExceptions {}
-public class Item73_ThrowExceptionsAppropriateToAbstractionLevel {}
-public class Item74_DocumentAllThrownExceptions {}
-public class Item75_IncludeFailureCaptureInformationInExceptionMessages {}
-public class Item76_StriveForFailureAtomicity {}
-public class Item77_DoNotIgnoreExceptions {}
-
-Chapter 11: Concurrency
-
-public class Item78_SynchronizeAccessToSharedMutableData {}
-public class Item79_AvoidExcessiveSynchronization {}
-public class Item80_PreferExecutorsTasksAndStreamsToThreads {}
-public class Item81_PreferConcurrencyUtilitiesToWaitAndNotify {}
-public class Item82_DocumentThreadSafety {}
-public class Item83_UseLazyInitializationJudiciously {}
-public class Item84_DoNotRelyOnThreadSchedulers {}
-
-Chapter 12: Serialization
-
-public class Item85_FindAlternativesToJavaSerialization {}
-public class Item86_CarefullyDecideWhetherToImplementSerializable {}
-public class Item87_ConsiderCustomSerializedForms {}
-public class Item88_WriteReadObjectMethodsDefensively {}
-public class Item89_ForInstanceControlUseEnumOrReadResolve {}
-public class Item90_ConsiderSerializationProxies {}
