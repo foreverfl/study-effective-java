@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"chapter10","c":"Item74_DocumentAllThrownExceptions","l":"Item74_DocumentAllThrownExceptions()","u":"%3Cinit%3E()"},{"p":"chapter10","c":"Item74_DocumentAllThrownExceptions","l":"main(String[])","u":"main(java.lang.String[])"}];updateSearchResults();

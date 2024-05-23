@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"chapter10","l":"Item74_DocumentAllThrownExceptions"}];updateSearchResults();
