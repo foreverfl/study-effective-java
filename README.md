@@ -131,7 +131,41 @@
 
 ## 아이템 1. 생성자 대신 정적 팩터리 메서드를 고려하라
 
+### 정적 팩터리 메서드가 생성자보다 좋은 점
+
+- 이름을 가질 수 있음.
+- 호출될 때마다 인스턴스를 새로 생성하지 않아도 됨.
+- 반환 타입의 하위 타입 객체를 반환할 수 있는 능력이 있음.
+- 입력 매개변수에 따라 매번 다른 클래스의 객체를 반환할 수 있음
+- 정적 팰터리 메서드를 작성하는 시점에는 반환할 객체의 클래스가 존재하지 않아도 됨.
+
+### 정적 팩터리 메서드가 생성자보다 나쁜 점
+
+- 상속을 하려면 `public`이나 `protected` 생성자가 필요하니 정적 팩터리 메서드만 제공하면 하위 클래스를 만들 수 없음.
+- 정적 팩터리 메서드는 프로그래머가 찾기 어려움.
+
+### 정적 팩터리 메서드에 흔히 사용하는 명명 방식들
+
+- `from`: 하나의 매개변수를 받아 해당 타입의 인스턴스를 생성하는 메서드. 예를 들어, `Date.from(instant)`는 Instant를 받아 Date 객체를 생성함.
+- `of`: 여러 매개변수를 받아 적절한 타입의 인스턴스를 생성하는 메서드. 예를 들어, `Set.of(elements)`는 여러 요소를 받아 `Set`을 생성함.
+- `valueOf`: `from`과 비슷하지만 더 명시적인 의미를 가지고, 주어진 매개변수를 사용하여 인스턴스를 생성함. 예를 들어, `Integer.valueOf(String)`는 문자열을 받아 `Integer` 객체를 생성함.
+- `instance / getInstance`: 인스턴스를 반환하는 메서드. 보통 싱글톤 패턴에서 사용됨. 예를 들어, `Calendar.getInstance()`는 `Calendar`의 인스턴스를 반환함.
+- `create / newInstance`: 새로운 인스턴스를 생성하는 메서드. 예를 들어, `MyClass.create()`는 `MyClass`의 새로운 인스턴스를 생성함.
+- `getType`: 특정 타입의 인스턴스를 반환하는 메서드. `getInstance`와 같으나, 새성할 클래스가 아닌 다른 클래스에 팩터리 메서드를 정의할 때 씀. 예를 들어, `FileStore.getFileStore(path)`는 `FileStore` 인스턴스를 반환함.
+- `newType`: 새로운 타입의 인스턴스를 생성하는 메서드. 예를 들어, `BufferedReader.newBufferedReader(reader)`는 `BufferedReader`의 새로운 인스턴스를 생성함.
+- `type`: 인스턴스를 반환하는 일반적인 메서드. 예를 들어, `TypeFactory.type()`은 특정 타입의 인스턴스를 반환함.
+
+### 요약
+
+- 정적 팩터리 메서드와 public 생성자는 각자의 쓰임새가 있으니 상대적인 장단점을 이해하고 사용하는 것이 좋음. 그렇다고 하더라도 정적 팩터리를 사용하는게 유리한 경우가 더 많으므로 무작적 public 생성자를 제공하던 습관이 있으면 고칠 것.
+
 ## 아이템 2. 생성자에 매개변수가 많다면 빌더를 고려하라
+
+### 내용
+
+### 핵심 정리
+
+- 생성자나 정적 팩터리가 처리해야 할 매개변수가 많다면 빌더 패턴을 선택하는 것이 나음. 매개 변수 중 다수가 필수가 아니거나 같은 타입이면 더 그러함. 빌더는 점층적 생성자보다 클라이언트 코드를 읽고 쓰시가 훨씬 간결하고, 자바 빈즈보다 안전함.
 
 ## 아이템 3. private 생성자나 열거 타입으로 싱글턴임을 보증하라
 
@@ -197,9 +231,132 @@
 
 - 꼭 회수해야 하는 자원을 다룰 때는 try-finally가 아닌 try-with-resources를 사용할 것.
 
-## 아이템 10. equals는 일반 규약을 지켜 재정의하라
+## 아이템 10. `equals`는 일반 규약을 지켜 재정의하라
 
-## 아이템 11. equals를 재정의하려거든 hashCode도 재정의하라
+### 다음 상황에 해당한다면 `equals`를 재정의하지 말 것.
+
+- 각 인스턴스가 본질걱으로 고유함. 예를 들어, 대부분의 `Thread` 클래스 인스턴스는 본질적으로 고유함. 두 개의 `Thread` 인스턴스가 논리적으로 같다고 비교하는 것은 의미가 없음. 각 스레드는 고유한 실행 흐름을 나타내기 때문임.
+
+```java
+Thread thread1 = new Thread();
+Thread thread2 = new Thread();
+System.out.println(thread1.equals(thread2)); // false, 본질적으로 고유
+```
+
+- 인스턴스의 '논리적 동치성(logical equality)'를 검사할 일이 없음. 예를 들어, 유틸리티 클래스(특정 기능이나 작업을 수행하는 정적 메서드들을 모아놓은 클래스)나 상수 클래스의 경우 논리적 동치성을 검사할 일이 없음.
+
+```java
+public class UtilityClass {
+    // 이 클래스는 논리적 동치성을 검사할 필요가 없음
+    private UtilityClass() {}
+    public static void utilityMethod() {
+        // ...
+    }
+}
+```
+
+- 상위 클래스에서 재정의한 `equals`가 하위 클래스에도 딱 들어 맞음. 예를 들어, `AbstractList` 클래스는 `List` 인터페이스를 구현하는 모든 하위 클래스에 대해 적절한 `equals` 메서드를 제공함. 따라서 `ArrayList`나 `LinkedList`에서 `equals`를 재정의할 필요가 없음.
+
+```java
+List<Integer> list1 = new ArrayList<>(Arrays.asList(1, 2, 3));
+List<Integer> list2 = new LinkedList<>(Arrays.asList(1, 2, 3));
+System.out.println(list1.equals(list2)); // true, 상위 클래스의 equals가 적절히 동작
+```
+
+- 클래스가 `private`이거나 `package-private`이고 `equals` 메서드를 호출할 일이 없음. 예를 들어, 내부적으로만 사용되는 `private` 클래스는 외부에서 접근할 수 없으므로 `equals` 메서드를 호출할 일이 없음.
+
+```java
+class PackagePrivateClass {
+    private int value;
+
+    PackagePrivateClass(int value) {
+        this.value = value;
+    }
+
+    // equals를 재정의할 필요 없음
+}
+
+public class Main {
+    public static void main(String[] args) {
+        PackagePrivateClass obj1 = new PackagePrivateClass(1);
+        PackagePrivateClass obj2 = new PackagePrivateClass(1);
+
+        // obj1.equals(obj2) 호출할 일이 없음
+    }
+}
+
+```
+
+### `equals` 메서드를 재정의할 때 따라야하는 일반 규약
+
+- **반사성(reflexivity)**: `null`이 아닌 모든 참조 값 `x`에 대해, `x.equals(x)`는 `true`임.
+- **대칭성(symmetry)**: `null`이 아닌 모든 참조 값 `x`와 `y`에 대해, `x.equals(y)`가 `true`이면 `y.equals(x)`도 `true`임.
+  > - `equals` 규약을 어기면 그 객체를 사용하는 다른 객체들이 어떻게 반응할지 알 수 없음.
+- **추이성(transitivity)**: `null`이 아닌 모든 참조 값 `x`, `y`, `z`에 대해, `x.equals(y)`가 `true`이고 `y.equals(z)`가 `true`이면 `x.equals(z)`도 `true`임.
+  > - 구체 클래스를 확장해 새로운 ㄱ밧을 추가하면서 `equals` 규약을 만족시킬 방법은 존재하지 않음.
+- **일관성(consistency)**: `null`이 아닌 모든 참조 값 `x`와 `y`에 대해, `x.equals(y)`를 반복해서 호출하면 항상 `true`를 반환하거나 항상 `false`를 반환함.
+  > - `equals`의 판단에 신뢰할 수 없는 자원이 끼어들게 해서는 안 됨.
+- **null 아님(non-nullity)**: `null`이 아닌 모든 참조 값 `x`에 대해, `x.equals(null)`는 `false`임.
+
+### `equals` 메서드 구현 방법
+
+1. `==` 연산자를 사용해 입력이 자기 자신의 참조인지 확인할 것.
+2. `instanceof` 연산자로 입력이 올바른 타입인지 확인할 것.
+3. 입력을 올바른 타입으로 형변환할 것.
+4. 입력 객체와 자기 자신의 대응되는 '핵심' 필드들이 모두 일치하는지 하나씩 검사할 것.
+
+### `equals` 메서드 구현 시 주의사항
+
+- `equals`를 재정의할 땐, `hashCode`도 반드시 재정의 할 것.
+- 너무 복잡하게 해결하려 하지 말 것.
+- `Object` 외의 타입을 매개변수로 받는 `equals` 메서드는 선언하지 말 것.
+
+### 핵심 정리
+
+- 꼭 필요한 경우가 아니면 `equals`를 재정의하지 말 것. 많은 경우에 `Object`의 `equals`가 여러분이 원하는 비교를 정확히 수행함. 재정의해야 할 때는 그 클래스의 핵심 필드를 모두 빠짐없이, 다섯가지 규약을 확실히 지켜가며 비교해야함.
+
+## 아이템 11. `equals`를 재정의하려거든 `hashCode`도 재정의하라
+
+### `hashCode`
+
+- `hashCode` 메서드는 객체의 해시 코드를 반환하는 메서드로, 해시 기반 컬렉션(`HashMap`, `HashSet` 등)에서 객체를 빠르게 검색하거나 저장하는 데 사용됨. 자바의 기본 `hashCode` 메서드는 객체의 메모리 주소를 기반으로 해시 코드를 생성함.
+
+### `Object` 명세에서 발췌한 `hashCode` 관련 규약
+
+- **일관성**: `equals` 비교에 사용되는 정보가 변경되지 않았다면, 애플리케이션이 실행되는 동안 그 객체의 `hashCode` 메서든느 몇 번을 호출해도 일관되게 항상 같은 값을 반환해야 함. 단, 애플리케이션을 다시 실행한다면 이 값이 달라져도 상관없음.
+- **equals와의 관계**: `equals(Object)`가 두 객체를 같다고 판단했다면, 두 객체의 `hashCode`는 똑같은 값을 반환해야 함.
+- **해시 충돌 최소화**: `equals(Object)`가 두 객체를 다르다고 판단했더라도, 두 객체의 `hashCode`는 서로 다른 값을 반환할 필요는 없음. 단, 다른 객체에 대해서는 다른 값을 반환해야 해시테이블의 성능이 좋아짐.
+- 서로 다른 두 객체가 같은 해시 코드를 가질 수 있음. 이는 해시 충돌이며, 해시 기반 자료구조는 이를 처리할 수 있는 방법을 가지고 있음. 예를 들어, `HashMap`은 같은 해시 코드를 가진 여러 객체를 처리할 수 있음. 해시 충돌을 처리하는 방법은 다양함. 대표적으로 두 가지가 있음.
+  > - **체이닝(Chaining)**: 동일한 해시 코드를 가진 객체들을 연결 리스트로 저장함. 해시 테이블의 각 버킷은 연결 리스트를 참조함.
+  > - **개방 주소법(Open Addressing)**: 충돌이 발생하면 다른 버킷을 찾아 객체를 저장함.
+
+### `hashCode` 사용시 주의할 점.
+
+- `equals`을 재정의한 클래스 모두에서 `hashCode`도 재정의해야함.
+- `hashCode` 재정의를 잘못했을 때 크게 문제가 되는 조항은, 논리적으로 같은 객체는 같은 해시 코드를 반환해야 한다는 것.
+
+### 좋은 hashCode 작성 요령
+
+- **일관된 equals 구현**: 두 객체가 `equals` 메서드에 의해 같다고 판단된다면, 두 객체는 반드시 같은 `hashCode`를 반환해야 함.
+- **다양한 필드 사용**: 가능한 많은 중요한 필드를 포함하여 해시 코드를 계산함.
+- **31 사용**: 소수인 31을 사용하여 각 필드를 조합함. 31은 홀수이고 소수로, 해시 충돌을 줄이는 데 도움이 됨.
+- **기본형 필드**: 기본형 필드는 직접 포함함. 예를 들어, `int` 필드는 직접 해시 코드 계산에 사용함.
+- **참조형 필드**: 참조형 필드는 해당 객체의 `hashCode`를 포함함. 만약 필드가 `null`일 수 있다면 `null`인 경우를 처리함.
+- **예제 코드**
+
+```java
+@Override
+public int hashCode() {
+    int result = 17; // 임의의 비-zero 정수로 시작
+    result = 31 * result + (name != null ? name.hashCode() : 0); // name 필드의 해시코드 포함
+    result = 31 * result + age; // age 필드의 해시코드 포함
+    return result;
+}
+```
+
+### 핵심 정리
+
+- `equals`를 재정의할 때는 `hashCode`도 반드시 재정의해야함. 그렇지 않으면 프로그램이 제대로 동작하지 않음. 재정의한 `hashCode`는 `Object`의 API 문서에 기술된 이란 규약을 따라야 하며, 서로 다른 인스턴스라면 되도록 해시코드도 서로 다르게 구현해야 함. 이렇게 구현하기가 어렵지는 않지만 조금 따분함 일임. AutoValue 프레임워크를 사용하면 `equals`와 `hashCode`를 자동으로 만들어줌.
 
 ## 아이템 12. toString을 항상 재정의하라
 
@@ -638,28 +795,6 @@ javadoc -d docs -sourcepath src src/chapter10/Item74_DocumentAllThrownExceptions
 ## 아이템 90. 직렬화된 인스턴스 대신 직렬화 프록시 사용을 검토하라
 
 ## 클래스명
-
-Chapter 3: Methods Common to All Objects
-
-public class Item10_OverrideEqualsConsistently {}
-public class Item11_OverrideHashCodeWhenOverridingEquals {}
-public class Item12_AlwaysOverrideToString {}
-public class Item13_OverrideCloneJudiciously {}
-public class Item14_ConsiderImplementingComparable {}
-
-Chapter 4: Classes and Interfaces
-
-public class Item15_MinimizeAccessibilitiesOfClassesAndMembers {}
-public class Item16_InsteadOfPublicFieldsUseAccessorMethods {}
-public class Item17_MinimizeMutability {}
-public class Item18_PreferCompositionOverInheritance {}
-public class Item19_DesignAndDocumentForInheritanceOrElseProhibitIt {}
-public class Item20_PreferInterfacesToAbstractClasses {}
-public class Item21_DesignInterfacesForImplementation {}
-public class Item22_UseInterfacesOnlyToDefineTypes {}
-public class Item23_PreferClassHierarchiesToTaggedClasses {}
-public class Item24_FavorStaticMemberClassesOverNonStatic {}
-public class Item25_LimitSourceFilesToASingleTopLevelClass {}
 
 Chapter 6: Enums and Annotations
 

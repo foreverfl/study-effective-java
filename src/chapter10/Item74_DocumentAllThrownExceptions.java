@@ -10,7 +10,7 @@ public class Item74_DocumentAllThrownExceptions {
     /**
      * Custom checked exception for demonstrating JavaDoc.
      */
-    private static class CustomCheckedException extends Exception {
+    public static class CustomCheckedException extends Exception {
         /**
          * Constructs a CustomCheckedException with the specified detail message.
          * 
@@ -25,7 +25,7 @@ public class Item74_DocumentAllThrownExceptions {
      * Custom unchecked exception for demonstrating JavaDoc.
      */
     @SuppressWarnings("unused")
-    private static class CustomUncheckedException extends RuntimeException {
+    public static class CustomUncheckedException extends RuntimeException {
         /**
          * Constructs a CustomUncheckedException with the specified detail message.
          * 
@@ -36,7 +36,7 @@ public class Item74_DocumentAllThrownExceptions {
         }
     }
 
-    private static class ExampleService {
+    public static class ExampleService {
 
         /**
          * This method performs a database operation.
