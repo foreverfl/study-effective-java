@@ -915,29 +915,339 @@ public class ReificationExample {
 
 ## 아이템 49. 매개변수가 유효한지 검사하라
 
+### 메서드 값의 유효성을 검사하는 방법
+
+- `java.util.Objects.requireNonNull`을 활용할 것.
+- `checkFromIndexSize`, `checkFromToIndex`, `checkIndex`를 활용할 것.
+- `assert`를 활용할 것. VSCode 기준으로는 `launch.json`에 아래와 같이 `vmArgs`에 `-ea`를 추가해야 함.
+
+```json
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "chapter08.Item49_CheckParametersForValidity",
+            "args": [],
+            "vmArgs": "-ea"
+        }
+    ]
+```
+
+### `assert`
+
+#### 개념
+
+- `assert`는 자바에서 제공하는 조건 검증 도구로, 주로 디버깅 및 테스트 중에 코드의 논리적 오류를 검출하기 위해 사용됨. `assert` 키워드는 특정 조건이 참인지 확인하며, 조건이 거짓이면 `AssertionError`를 던짐. 이 기능은 개발 중에만 활성화되고, 실제 운영 환경에서는 비활성화할 수 있음.
+
+#### 사용법
+
+- **기본 사용법**: 이 구문은 `condition`이 `true`인지 확인함. `condition`이 `false`이면 `AssertionError`가 발생함.
+
+```java
+assert condition;
+```
+
+- **조건이 거짓일 때 메시지를 포함하는 방법**:이 구문은 `condition`이 `true`인지 확인하고, `condition`이 `false`일 경우 지정한 "Error message"와 함께 `AssertionError`를 발생시킴.
+
+```java
+assert condition : "Error message";
+```
+
 ### 핵심 정리
 
 - 메서드나 생성자를 작성할 때면 그 매개변수들에 어떤 제약이 있을지 생각해야 함. 그 제약들을 문서화하고 메서드 코드 시작 부분에서 명시적으로 검사해야 함. 이런 습관을 반드시 기르도록 할 것. 그 노력은 유효성 검사가 실제 오류를 처음 걸러낼 때 충분히 보상받을 것.
 
-### 예제 코드
+### [예제 코드](https://github.com/foreverfl/study-effective-java/blob/main/src/chapter08/Item49_CheckParametersForValidity.java)
 
 ## 아이템 50. 적시에 방어적 복사본을 만들라
+
+### 방어적 본사본이란?
+
+- 방어적 복사본(defensive copy)은 객체의 불변성을 유지하기 위해 클라이언트가 제공한 객체의 복사본을 만들어 사용하는 프로그래밍 기법. 이는 객체의 상태를 외부에서 변경하지 못하게 방지하는 역할을 함. 특히, 클라이언트가 제공한 객체가 가변적(mutable)인 경우에는 방어적 복사본을 통해 원본 객체의 변경으로부터 안전하게 보호할 수 있음.
+
+### 방어적 복사를 구현할 때 유의해야 할 점
+
+- **입력 매개변수 복사**: 클라이언트가 제공한 가변 객체를 생성자나 메서드의 내부에 저장하기 전에 복사함.
+- **반환값 복사**: 가변 객체를 반환할 때, 원본을 그대로 반환하지 않고 복사본을 반환함.
+- **클론 메서드 사용 자제**: 매개변수가 제 3자에 의해 확장될 수 있는 타입이라면 방어적 복사본을 만들 때 `clone` 메서드를 사용하지 않음. 이는 `clone` 메서드가 정확하게 구현되지 않은 경우가 많기 때문임.
+- 클라이언트가 여러분의 불변식을 깨뜨리려 혈안이 되어 있다고 가정하고 방어적으로 프로그래밍 해야 함.
+- `Date`는 낡은 API이니 새로운 코드를 작성할 때는 더 이상 사용하면 안 됨.
+- 생성자에게 받은 매개변수 각각을 방어적으로 복사해야 함.
+- 매개변수가 제 3자에 의해 확장될 수 있는 타입이라면 방어적 복사본을 만들 때 `clone`을 사용해서는 안 됨.
+
+### 방어적 복사를 사용하는 케이스
+
+- **컬렉션 (Collection)**: 컬렉션(예: List, Set, Map)을 반환할 때 방어적 복사를 사용하여 원본 컬렉션이 외부에서 변경되지 않도록 보호할 수 있음.
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class DefensiveCopyExample {
+    private final List<String> items;
+
+    public DefensiveCopyExample(List<String> items) {
+        this.items = new ArrayList<>(items); // 방어적 복사
+    }
+
+    public List<String> getItems() {
+        return Collections.unmodifiableList(new ArrayList<>(items)); // 방어적 복사 후 불변 리스트 반환
+    }
+
+    public static void main(String[] args) {
+        List<String> original = new ArrayList<>();
+        original.add("Item1");
+        original.add("Item2");
+
+        DefensiveCopyExample example = new DefensiveCopyExample(original);
+        List<String> items = example.getItems();
+
+        // items.add("Item3"); // 예외 발생: UnsupportedOperationException
+
+        System.out.println(items);
+    }
+}
+```
+
+- **배열 (Array)**: 배열을 반환할 때 방어적 복사를 사용하여 원본 배열이 외부에서 변경되지 않도록 보호할 수 있음.
+
+```java
+public class DefensiveCopyArrayExample {
+    private final int[] numbers;
+
+    public DefensiveCopyArrayExample(int[] numbers) {
+        this.numbers = numbers.clone(); // 방어적 복사
+    }
+
+    public int[] getNumbers() {
+        return numbers.clone(); // 방어적 복사
+    }
+
+    public static void main(String[] args) {
+        int[] original = {1, 2, 3, 4, 5};
+        DefensiveCopyArrayExample example = new DefensiveCopyArrayExample(original);
+
+        int[] numbers = example.getNumbers();
+        numbers[0] = 100; // 원본에 영향 없음
+
+        System.out.println(java.util.Arrays.toString(example.getNumbers()));
+    }
+}
+```
+
+- **불변 객체 (Immutable Objects)**: 불변 객체를 반환할 때, 내부의 가변 필드를 방어적 복사하여 반환함.
+
+```java
+public class DefensiveCopyImmutableExample {
+    private final ComplexObject complexObject;
+
+    public DefensiveCopyImmutableExample(ComplexObject complexObject) {
+        this.complexObject = new ComplexObject(complexObject); // 방어적 복사
+    }
+
+    public ComplexObject getComplexObject() {
+        return new ComplexObject(complexObject); // 방어적 복사
+    }
+
+    static class ComplexObject {
+        private final String data;
+
+        public ComplexObject(String data) {
+            this.data = data;
+        }
+
+        public ComplexObject(ComplexObject other) {
+            this.data = other.data; // 복사 생성자
+        }
+
+        @Override
+        public String toString() {
+            return data;
+        }
+    }
+
+    public static void main(String[] args) {
+        ComplexObject original = new ComplexObject("Hello");
+        DefensiveCopyImmutableExample example = new DefensiveCopyImmutableExample(original);
+
+        ComplexObject copy = example.getComplexObject();
+        System.out.println(copy);
+    }
+}
+```
+
+- **깊은 복사 (Deep Copy)**: 객체가 중첩된 가변 객체를 포함하고 있을 때, 깊은 복사를 통해 모든 중첩 객체를 복사함.
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class DeepCopyExample {
+    private final Map<String, String> data;
+
+    public DeepCopyExample(Map<String, String> data) {
+        this.data = new HashMap<>(data); // 깊은 복사
+    }
+
+    public Map<String, String> getData() {
+        return new HashMap<>(data); // 깊은 복사
+    }
+
+    public static void main(String[] args) {
+        Map<String, String> original = new HashMap<>();
+        original.put("key1", "value1");
+        original.put("key2", "value2");
+
+        DeepCopyExample example = new DeepCopyExample(original);
+        Map<String, String> copy = example.getData();
+        copy.put("key3", "value3"); // 원본에 영향 없음
+
+        System.out.println(example.getData());
+    }
+}
+```
+
+- **상태가 변경될 수 있는 객체 (Mutable Objects)**: 상태가 변경될 수 있는 객체를 반환할 때, 방어적 복사를 통해 외부에서 객체 상태를 변경하지 못하도록 함.
+
+```java
+public class MutableObjectExample {
+    private final Address address;
+
+    public MutableObjectExample(Address address) {
+        this.address = new Address(address); // 방어적 복사
+    }
+
+    public Address getAddress() {
+        return new Address(address); // 방어적 복사
+    }
+
+    static class Address {
+        private String street;
+
+        public Address(String street) {
+            this.street = street;
+        }
+
+        public Address(Address other) {
+            this.street = other.street;
+        }
+
+        public String getStreet() {
+            return street;
+        }
+
+        public void setStreet(String street) {
+            this.street = street;
+        }
+
+        @Override
+        public String toString() {
+            return street;
+        }
+    }
+
+    public static void main(String[] args) {
+        Address original = new Address("123 Main St");
+        MutableObjectExample example = new MutableObjectExample(original);
+
+        Address copy = example.getAddress();
+        copy.setStreet("456 Broadway"); // 원본에 영향 없음
+
+        System.out.println(example.getAddress());
+    }
+}
+```
+
+- **안전한 스레드 (Thread Safety)**: 스레드 간의 데이터 공유 시, 방어적 복사를 통해 안전하게 데이터를 전달함.
+
+```java
+public class ThreadSafeExample {
+    private final SharedData sharedData;
+
+    public ThreadSafeExample(SharedData sharedData) {
+        this.sharedData = new SharedData(sharedData); // 방어적 복사
+    }
+
+    public SharedData getSharedData() {
+        return new SharedData(sharedData); // 방어적 복사
+    }
+
+    static class SharedData {
+        private String data;
+
+        public SharedData(String data) {
+            this.data = data;
+        }
+
+        public SharedData(SharedData other) {
+            this.data = other.data;
+        }
+
+        public String getData() {
+            return data;
+        }
+
+        public void setData(String data) {
+            this.data = data;
+        }
+
+        @Override
+        public String toString() {
+            return data;
+        }
+    }
+
+    public static void main(String[] args) {
+        SharedData original = new SharedData("Shared Data");
+        ThreadSafeExample example = new ThreadSafeExample(original);
+
+        SharedData copy = example.getSharedData();
+        copy.setData("Modified Data"); // 원본에 영향 없음
+
+        System.out.println(example.getSharedData());
+    }
+}
+```
 
 ### 핵심 정리
 
 - 클래스가 클라이언트로부터 받는 혹은 클라이언트로 반환하는 구성요소가 가변적이라면 그 요소는 반드시 방어적으로 복사해야 함. 복사 비용이 너무 크거나 클라이언트가 그 요소를 잘못 수정할 일이 없음을 신뢰한다면 방어적 복사를 수행하는 대신 해당 구성 요소를 수정했을 때의 책임이 클라이언트에 있음을 문서에 명시할 것.
 
-### 예제 코드
+### [예제 코드](https://github.com/foreverfl/study-effective-java/blob/main/src/chapter08/Item50_DefensiveCopiesForMutableFields.java)
 
 ## 아이템 51. 메서드 시그니처를 신중히 설계하라
 
-### 예제 코드
+### 오류 가능성이 적은 API를 설계하는 방법
 
-## 아이템 52. 다중정의는 신중히 사용하라
+- 편의 메서드를 너무 많이 만들지 말 것. 확신이 없으면 만들지 말 것.
+- 매개변수 목록은 짦게 유지할 것. 4개 이하가 좋음. 같은 타입의 매개변수 여러 개가 연달아 나오는 경우가 특히 해로움. 다음은 매개변수 목록을 짧게 줄여주는 기술임.
+  > - 여러 메서드로 쪼개기.
+  > - 매개변수 여러 개를 묶어주는 도우미 클래스를 만들기.
+  > - 객체 생성에 사용한 빌더 패턴을 메서드 호출에 응용하기.
+- 매개변수의 타입으로는 클래스보다는 인터페이스가 더 나음.
+- `boolean`보다는 원소 2개짜리 열거 타입이 나음. 열커 타입을 사용하면 코드를 읽고 쓰기가 더 쉬워짐. 나중에 선택지를 추가하기도 쉬움.
+
+### [예제 코드](https://github.com/foreverfl/study-effective-java/blob/main/src/chapter08/Item51_DesignMethodSignaturesCarefully.java)
+
+## 아이템 52. 오버로딩(overloading)는 신중히 사용하라
+
+### 오버로딩(overloading)의 단점
+
+- 어느 메서드를 호출할지가 컴파일 타임에 정해짐.
+- 오버라이딩(overriding)한 메서드는 동적으로 선택되고, 오버로딩(overloading)한 메서드는 정적으로 선택됨.
+
+### 오버로딩(overloading)을 사용할 때 유의할 점
+
+- 오버로딩(overloading)이 혼동을 일으키는 상황을 피해야 함.
+- 안전하고 보수적으로 가려면 매개변수 수가 같은 오버로딩(overloading)은 피할 것. 오버로딩(overloading)하는 대신 메서드 이름을 다르게 지어주는 방법도 있음.
+- 메서드를 오버로딩(overloading) 할 때, 서로 다른 함수형 인터페이스라도 같은 위치의 인수로 받아서는 안됨.
 
 ### 핵심 정리
 
-- 프로그래밍 언어가 다중정의를 허용한다고 해서 다중정의를 꼭 활용하란 뜻은 아님. 일반적으로 매개변수가 같을 때는 다중정의를 피하는 것이 좋음. 상황에 따라, 특히 생성자라면 이 조언을 따르기가 불가능할 수 있음. 그럴 때는 헷갈릴만한 매개변수는 형변환하여 명확한 다중정의 메서드가 선택되도록 해야 할 것. 이것이 불가능하면, 예컨대 기존 클래스를 수정해 새로운 인터페이스를 구현해야 할 때는 같은 객체를 입력받는 다중 정의 메서드들이 모두 동일하게 동작하도록 만들어야 함. 그렇지 못하면 프로그래머들은 다중정의된 메서드나 생성자를 효과적으로 사용하지 못할 것이고, 의도대로 동작하지 않는 이유를 이해하지도 못할 것.
+- 프로그래밍 언어가 오버로딩(overloading)을 허용한다고 해서 오버로딩(overloading)을 꼭 활용하란 뜻은 아님. 일반적으로 매개변수가 같을 때는 오버로딩(overloading)을 피하는 것이 좋음. 상황에 따라, 특히 생성자라면 이 조언을 따르기가 불가능할 수 있음. 그럴 때는 헷갈릴만한 매개변수는 형변환하여 명확한 오버로딩(overloading) 메서드가 선택되도록 해야 할 것. 이것이 불가능하면, 예컨대 기존 클래스를 수정해 새로운 인터페이스를 구현해야 할 때는 같은 객체를 입력받는 오버로딩(overloading) 메서드들이 모두 동일하게 동작하도록 만들어야 함. 그렇지 못하면 프로그래머들은 오버로딩(overloading)된 메서드나 생성자를 효과적으로 사용하지 못할 것이고, 의도대로 동작하지 않는 이유를 이해하지도 못할 것.
 
 ### 예제 코드
 
